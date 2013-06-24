@@ -1,0 +1,81 @@
+@(loginedUser:models.User)(follows:List[models.User])(allUsers:List[models.User])(tweets:List[models.Tweet])(implicit flash: Flash)
+
+@main("Yatter") {
+
+<div class="container">
+	<div class="navbar navbar-static-top navbar-inverse">
+		<div class="navbar-inner">
+		    <a class="brand" href="@routes.Timeline.index">YATTER</a>
+		    <ul class="nav">
+		      <li class="active"><a href="#">Home</a></li>
+		    </ul>
+
+		    <ul class="nav pull-right">
+		    	<li><a href="@routes.Application.logout">@loginedUser.name</a></li>
+	        </ul>
+		</div>
+	</div>
+
+	@flash.get("success").map { message =>
+        <div class="row">
+        	<div class="span12">
+ 		    	<div class="alert alert-success">
+		        @message
+		    	</div>
+        	</div>
+        </div>
+    }
+	@flash.get("error").map { message =>
+        <div class="row">
+       		<div class="span12">
+	         	<div class="alert alert-error">
+	            @message
+	        	</div>
+	        </div>
+        </div>
+    }
+
+    <div class="row" style="padding-top:10px">
+    	<div class="span4">
+			<div class="well" style="padding-bottom:30px">
+    			<div><strong>@loginedUser.name</strong></div>
+    			<div><strong>@follows.length</strong> following</div>
+
+    			<form class="form" action="/tweet" method="GET">
+    				<textarea name="text" placeholder="Compose new Tweet" cols="100"></textarea>
+					<div class="pull-right" >
+						<button class="btn btn-info" type="submit">Tweet</button>
+					</div>
+    			</form>
+
+    		</div>
+    		<div class="well">
+    			<div><strong>Who to follow</strong></div>
+    			@for(user <- allUsers){
+					@if(user.id != loginedUser.id && !follows.contains(user)){
+						<div style="padding:2px">
+							<a href="/follow/@user.id" class="btn btn-info btn-mini">follow</a> @user.name
+						</div>
+					}
+    			}
+    		</div>
+    	</div>
+    	<div class="span8">
+    		<div class="well">
+    			<strong>Tweets</strong>
+				@for(tweet <- tweets){
+					<hr/>
+					<div>
+						<span><strong>@allUsers.filter(_.id == tweet.userid).head.name</strong></span>
+						<span class="pull-right">@tweet.createdAt</span>
+					</div>
+					@tweet.text
+				}
+    		</div>
+    	</div>
+    </div>
+
+
+</div>
+    
+}

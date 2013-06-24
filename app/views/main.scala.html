@@ -1,0 +1,49 @@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>@title</title>
+        <link rel="stylesheet" type="text/css" href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/flat-ui.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.at("bootstrap/js/bootstrap{.min.js")" type="text/javascript"></script>
+    </head>
+    <body>
+
+        <img class="bg" src="@routes.Assets.at("images/mainbg.jpg")" alt="" />
+
+        <style type="text/css">
+
+            img.bg {
+              /* Set rules to fill background */
+              min-height: 100%;
+              min-width: 1024px;
+              /* Set up proportionate scaling */
+              width: 100%;
+              height: auto;
+              /* Set up positioning */
+              position: fixed;
+              /* またはabsolute; */
+              top: 0;
+              left: 0;
+            }
+
+            @@media screen and (max-width: 1024px){
+              img.bg {
+              left: 50%;
+              margin-left: -512px; }
+            }
+
+            div.container {
+              position: relative; 
+            }
+
+        </style>
+
+        @content
+    </body>
+</html>

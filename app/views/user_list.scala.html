@@ -1,0 +1,13 @@
+@(users:List[models.User])
+
+@main("Yatter") {
+
+<div class="container">
+	<ul>
+		@for(user <- users){
+			<li>@user.name (@user.hashedPassword) 
+		}
+	</ul>
+</div>
+    
+}
