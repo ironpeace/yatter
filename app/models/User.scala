@@ -6,11 +6,11 @@ import com.github.aselab.activerecord.dsl._
 import java.security.MessageDigest
 
 case class User(
-	@Required(on="create")
+	@Required
 	name: String, 
 
 	@Transient 
-	@Required
+	@Required(on="create")
 	password: String
 
 	) extends ActiveRecord {
