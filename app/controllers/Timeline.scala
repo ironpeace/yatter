@@ -18,13 +18,19 @@ object Timeline extends Controller {
 			User.findBy("name", username) match {
 				case Some(user) => {
 
-					// ******************************************
-					// Get users who the user follows.
-					// ******************************************
-					val whoUserFollows = Follow.where(_.userid === user.id).head.users.toList
+					// The implementation to show the timeline view
 
 					// ******************************************
-					// Get tweets of the user.
+					// Get users who the logined user follows.
+					// After you specify the follow model, 
+					// you can get the users easily.
+					// ******************************************
+					val whoUserFollows
+					 = Follow.where(_.userid === user.id).head.users.toList
+
+					// ******************************************
+					// Get tweets of the logined user.
+					// You can get the tweets easily.
 					// ******************************************
 					val myTweets = user.tweets.toList
 
@@ -51,6 +57,8 @@ object Timeline extends Controller {
 					User.find(id) match {
 						case Some(whoUserFollow) => {
 
+							// The implementation to follow
+
 							// ******************************************
 							// Follow a user who the user wants to follow
 							// (Add a user to the User's Follow Group)
@@ -76,9 +84,10 @@ object Timeline extends Controller {
 			User.findBy("name", username) match {
 				case Some(user) => {
 
+					// The implementation to post a tweet
 
 					// ******************************************
-					// Tweeting
+					// Create at tweet and Add to user models
 					// ******************************************
 					user.tweets << Tweet(user.id, text).create
 

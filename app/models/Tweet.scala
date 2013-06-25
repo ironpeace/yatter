@@ -10,7 +10,8 @@ case class Tweet(
 	@Length(min=1, max=140)
 	text:String
 	) extends ActiveRecord {
-		val createdAt:Timestamp = new Timestamp(System.currentTimeMillis)
+		val createdAt:Timestamp
+			 = new Timestamp(System.currentTimeMillis)
 
 		val userId:Option[Long] = None
 		lazy val user = belongsTo[User]

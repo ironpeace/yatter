@@ -89,7 +89,7 @@ object Application extends Controller {
 		    	user => {
 					// ******************************************
 					// Here I use the exists method and the create method.
-					// As you can see, you can write by intuition.
+					// As you can see, you can write intuitively.
 					// ******************************************
 					if(User.exists(_.name === user.name)){
 						Redirect(routes.Application.login())
